@@ -232,7 +232,9 @@ class RemoteZipFile:
             self.extract(fn, path, pwd=pwd)
 
     def get_range(self, start, n):
-        return self.http.request('GET', self.url, headers={'Range': f'bytes={start}-{start+n-1}'}, preload_content=False)
+        headers = {"Range": f"bytes={start}-{start + n - 1}"}
+        headers.update(self.http.headers)
+        return self.http.request("GET", self.url, headers=headers, preload_content=False)
 
     def matching_files(self, *globs):
         for f in self.files.values():
