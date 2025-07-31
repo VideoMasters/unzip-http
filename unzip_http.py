@@ -125,10 +125,10 @@ class RemoteZipFile:
     magic_eocd64 = b'\x50\x4b\x06\x06'
     magic_eocd = b'\x50\x4b\x05\x06'
 
-    def __init__(self, url):
+    def __init__(self, url, **kwargs):
         import urllib3
         self.url = url
-        self.http = urllib3.PoolManager()
+        self.http = urllib3.PoolManager(**kwargs)
         self.zip_size = 0
 
     def __enter__(self):
